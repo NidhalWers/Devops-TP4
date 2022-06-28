@@ -1,6 +1,6 @@
 data "azurerm_resource_group" "tp4" {
   name = "devops-TP2"
-  //location = "france central"
+  //location = "francecentral"
 }
 
 data "azurerm_virtual_network" "tp4" {

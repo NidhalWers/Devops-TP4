@@ -18,7 +18,7 @@ provider "azurerm" {
 
 resource "azurerm_public_ip" "tp4" {
   name                         = "publicIPForLB"
-  location                     = data.azurerm_resource_group.tp4.location
+  location                     = "francecentral"
   resource_group_name          = data.azurerm_resource_group.tp4.name
   allocation_method            = "Static"
 }
