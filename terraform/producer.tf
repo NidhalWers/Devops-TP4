@@ -17,10 +17,10 @@ provider "azurerm" {
 }
 
 resource "azurerm_public_ip" "tp4" {
-  name                         = "publicIPForLB"
-  location                     = "francecentral"
-  resource_group_name          = data.azurerm_resource_group.tp4.name
-  allocation_method            = "Static"
+  name                = "publicIPForLB"
+  location            = "francecentral"
+  resource_group_name = data.azurerm_resource_group.tp4.name
+  allocation_method   = "Static"
 }
 
 
@@ -33,7 +33,7 @@ resource "azurerm_network_interface" "tp4" {
     name                          = "testConfiguration"
     subnet_id                     = data.azurerm_subnet.tp4.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.tp4.id
+    public_ip_address_id          = azurerm_public_ip.tp4.id
   }
 }
 
@@ -42,30 +42,34 @@ resource "tls_private_key" "rsa-4096-example" {
   rsa_bits  = 4096
 }
 
+
+
 resource "azurerm_linux_virtual_machine" "tp4" {
-  name = "devops-20211018"
+  name                = "devops-20211018"
   resource_group_name = data.azurerm_resource_group.tp4.name
-  location = "francecentral"
-  size = "Standard_D2s_v3"
-  admin_username = "devops"
+  location            = "francecentral"
+  size                = "Standard_D2s_v3"
+  admin_username      = "devops"
+
   network_interface_ids = [
     azurerm_network_interface.tp4.id,
   ]
 
   admin_ssh_key {
-    username = "devops"
+    username   = "devops"
     public_key = tls_private_key.rsa-4096-example.public_key_openssh
   }
 
   os_disk {
-    caching = "ReadWrite"
+    caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
   source_image_reference {
     publisher = "Canonical"
-    offer = "UbuntuServer"
-    sku = "16.04-LTS"
-    version = "latest"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
   }
 }
+
