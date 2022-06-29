@@ -18,7 +18,7 @@ provider "azurerm" {
 
 resource "azurerm_public_ip" "tp4" {
   name                = "publicIPForLB"
-  location            = "francecentral"
+  location            = var.region
   resource_group_name = data.azurerm_resource_group.tp4.name
   allocation_method   = "Dynamic"
 }
@@ -47,7 +47,7 @@ resource "tls_private_key" "rsa-4096-example" {
 resource "azurerm_linux_virtual_machine" "tp4" {
   name                = "devops-20211018"
   resource_group_name = data.azurerm_resource_group.tp4.name
-  location            = "francecentral"
+  location            = var.region
   size                = "Standard_D2s_v3"
   admin_username      = "devops"
 
