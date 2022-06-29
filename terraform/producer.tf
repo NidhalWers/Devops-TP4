@@ -20,7 +20,7 @@ resource "azurerm_public_ip" "tp4" {
   name                = "publicIPForLB"
   location            = "francecentral"
   resource_group_name = data.azurerm_resource_group.tp4.name
-  allocation_method   = "Static"
+  allocation_method   = "Dynamic"
 }
 
 
@@ -50,6 +50,8 @@ resource "azurerm_linux_virtual_machine" "tp4" {
   location            = "francecentral"
   size                = "Standard_D2s_v3"
   admin_username      = "devops"
+
+  disable_password_authentication = true
 
   network_interface_ids = [
     azurerm_network_interface.tp4.id,
